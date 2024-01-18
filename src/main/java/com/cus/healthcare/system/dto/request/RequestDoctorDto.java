@@ -19,12 +19,8 @@ public class RequestDoctorDto {
 
     private String name;
     private String address;
-
     private String contact;
-
     private double salary;
-
-
 
 
 }
