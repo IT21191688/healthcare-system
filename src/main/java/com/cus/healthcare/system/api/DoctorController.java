@@ -13,27 +13,38 @@ public class DoctorController {
         return doctorDto.toString();
     }
 
-    @GetMapping
-    public String getDoctor(){
+    @GetMapping("/{id}")
+    public String getDoctor(@PathVariable String id){
 
-        return "Get Doctor";
+        return "Get Doctor"+id;
     }
 
 
-    @PutMapping
-    public String updateDoctor(){
+    @PutMapping(params = "id")
+    public String updateDoctor(
 
-        return "Update Doctor";
+            @RequestParam String id,
+            @RequestBody RequestDoctorDto doctorDto
+
+    ){
+
+        return doctorDto.toString()+id;
     }
 
-    @DeleteMapping
-    public String deleteDoctor(){
+    @DeleteMapping("/{id}")
+    public String deleteDoctor(@PathVariable String id){
 
-        return "Delete Doctor";
+        return id+"Delete Doctor";
     }
 
-    @GetMapping(path = "/list")
-    public String getDoctorList(){
+    @GetMapping(path = "/list" ,params = {"searchText","page","size"})
+    public String getDoctorList(
+
+            @RequestParam String searchText,
+            @RequestParam int page,
+            @RequestParam int size
+
+    ){
 
         return "List Doctor";
     }
