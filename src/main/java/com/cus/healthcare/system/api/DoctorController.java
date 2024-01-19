@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/doctors")//api path
 public class DoctorController {
 
+
+    //created 201
+    //get 200
+
     private final DoctorService doctorService;
 
     public DoctorController(DoctorService doctorService) {
@@ -28,9 +32,11 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public String getDoctor(@PathVariable String id){
+    public ResponseEntity<StandardResponse> getDoctor(@PathVariable long id){
 
-        return "Get Doctor"+id;
+        StandardResponse standardResponse = new StandardResponse(200, "Doctor details get Successfully", doctorService.getDoctor(id));
+
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
 
@@ -46,7 +52,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteDoctor(@PathVariable String id){
+    public String deleteDoctor(@PathVariable long id){
 
         return id+"Delete Doctor";
     }

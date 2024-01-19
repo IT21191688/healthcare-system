@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DoctorRepo extends JpaRepository<Doctor,Long> {
 
@@ -14,5 +15,8 @@ public interface DoctorRepo extends JpaRepository<Doctor,Long> {
 
     @Query(value = "SELECT * FROM doctor WHERE name LIKE ?1 OR address LIKE ?1",nativeQuery = true)
     public List<Doctor>searchDoctors(String searchText, Pageable pageable);
+
+
+    Optional<Doctor> findTopByOrderByIdDesc();
 
 }

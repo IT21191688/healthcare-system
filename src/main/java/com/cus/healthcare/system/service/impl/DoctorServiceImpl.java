@@ -29,8 +29,8 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void createDoctor(RequestDoctorDto dto) {
 
-        UUID uuid=UUID.randomUUID();
-        long dId=uuid.getMostSignificantBits();
+        UUID uuid = UUID.randomUUID();
+        long dId = Math.abs(uuid.getMostSignificantBits()) % 1_000_000;
 
         Doctor doctor=new Doctor(dId,dto.getName(),dto.getAddress(),dto.getContact(),dto.getSalary());
         doctorRepo.save(doctor);
