@@ -3,6 +3,9 @@ package com.cus.healthcare.system.api;
 
 import com.cus.healthcare.system.dto.request.RequestDoctorDto;
 import com.cus.healthcare.system.service.DoctorService;
+import com.cus.healthcare.system.service.utill.StandardResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController //this is a rest controller
@@ -16,9 +19,12 @@ public class DoctorController {
     }
 
     @PostMapping //post method
-    public String createDoctor(@RequestBody RequestDoctorDto doctorDto){
+    public ResponseEntity<StandardResponse> createDoctor(@RequestBody RequestDoctorDto doctorDto) {
         doctorService.createDoctor(doctorDto);
-        return doctorDto.getName();
+
+        StandardResponse standardResponse = new StandardResponse(201, "Doctor Add Successfully", doctorDto);
+
+        return new ResponseEntity<>(standardResponse, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
