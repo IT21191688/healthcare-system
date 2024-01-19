@@ -7,6 +7,7 @@ import com.cus.healthcare.system.entity.Doctor;
 import com.cus.healthcare.system.exception.EntryNotFoundException;
 import com.cus.healthcare.system.repo.DoctorRepo;
 import com.cus.healthcare.system.service.DoctorService;
+import com.cus.healthcare.system.service.utill.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,14 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepo doctorRepo;
 
+    private final DoctorMapper doctorMapper;
+
     @Autowired
-    public DoctorServiceImpl(DoctorRepo doctorRepo) {
+    public DoctorServiceImpl(DoctorRepo doctorRepo, DoctorMapper doctorMapper) {
         this.doctorRepo = doctorRepo;
+        this.doctorMapper = doctorMapper;
     }
+
 
     @Override
     public void createDoctor(RequestDoctorDto dto) {
@@ -82,10 +87,14 @@ public class DoctorServiceImpl implements DoctorService {
             throw new EntryNotFoundException("Doctor Not found");
         }
 
+        /*
         Doctor doc=selectedDoctor.get();
         return new ResponseDoctorDto(
                 doc.getId(),doc.getName(),doc.getContact(),doc.getAddress(),doc.getSalary()
         );
+         */
+        return doctorMapper.toResponseDoctorDto(selectedDoctor.get());
+
 
     }
 
@@ -96,8 +105,9 @@ public class DoctorServiceImpl implements DoctorService {
 
         long doctorCount = doctorRepo.countDoctors(searchText);
 
-        List<ResponseDoctorDto> dtos = new ArrayList<>();
+        //List<ResponseDoctorDto> dtos = new ArrayList<>();
 
+        /*
         doctors.forEach(
                 doc -> {
                     dtos.add(
@@ -107,8 +117,12 @@ public class DoctorServiceImpl implements DoctorService {
                     );
                 }
         );
-
-        return new PaginatedDoctorResponseDto(doctorCount, dtos);
+*/
+        List<ResponseDoctorDto> dtos = doctorMapper.toResponseDoctorDtoList(doctors);
+        return new PaginatedDoctorResponseDto(
+                doctorCount,
+                dtos
+        );
     }
 
     @Override
