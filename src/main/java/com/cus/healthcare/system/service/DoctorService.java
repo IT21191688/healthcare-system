@@ -17,5 +17,6 @@ public interface DoctorService {
 
     public List<ResponseDoctorDto> getAllDoctors(String searchText, int page, int size);
 
+    public List<ResponseDoctorDto> findDoctorsByName(String name);
 
 }

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
+    //crud ,exeption,mapping
 
     private final DoctorRepo doctorRepo;
 
@@ -36,6 +38,14 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void deleteDoctor(long id) {
 
+        Optional<Doctor> selectedDoctor= doctorRepo.findById(id);
+
+        if(selectedDoctor.isEmpty()){
+            throw new RuntimeException("Doctor Not found");
+        }
+
+        doctorRepo.deleteById(selectedDoctor.get().getId());
+
     }
 
     @Override
@@ -45,11 +55,30 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public ResponseDoctorDto getDoctor(long id) {
-        return null;
+
+        Optional<Doctor> selectedDoctor= doctorRepo.findById(id);
+
+        if(selectedDoctor.isEmpty()){
+            throw new RuntimeException("Doctor Not found");
+        }
+
+        Doctor doc=selectedDoctor.get();
+        return new ResponseDoctorDto(
+                doc.getId(),doc.getName(),doc.getContact(),doc.getAddress(),doc.getSalary()
+        );
+
     }
 
     @Override
     public List<ResponseDoctorDto> getAllDoctors(String searchText, int page, int size) {
         return null;
+    }
+
+    @Override
+    public List<ResponseDoctorDto> findDoctorsByName(String name) {
+        List<Doctor> allByName=doctorRepo.findAllByName(name);
+
+        return null;
+
     }
 }
