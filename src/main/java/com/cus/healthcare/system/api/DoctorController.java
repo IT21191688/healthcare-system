@@ -15,6 +15,7 @@ public class DoctorController {
 
     //created 201
     //get 200
+    //update 201
 
     private final DoctorService doctorService;
 
@@ -41,24 +42,31 @@ public class DoctorController {
 
 
     @PutMapping(params = "id")
-    public String updateDoctor(
+    public ResponseEntity<StandardResponse> updateDoctor(
 
-            @RequestParam String id,
+            @RequestParam long id,
             @RequestBody RequestDoctorDto doctorDto
 
     ){
+        doctorService.updateDoctor(id,doctorDto);
 
-        return doctorDto.toString()+id;
+        StandardResponse standardResponse = new StandardResponse(201, "Doctor details Update Successfully", doctorService.getDoctor(id));
+
+        return new ResponseEntity<>(standardResponse, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteDoctor(@PathVariable long id){
+    public ResponseEntity<StandardResponse> deleteDoctor(@PathVariable long id){
 
-        return id+"Delete Doctor";
+        doctorService.deleteDoctor(id);
+
+        StandardResponse standardResponse = new StandardResponse(204, "Doctor Delete Successfully",id);
+
+        return new ResponseEntity<>(standardResponse, HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(path = "/list" ,params = {"searchText","page","size"})
-    public String getDoctorList(
+    public ResponseEntity<StandardResponse> getDoctorList(
 
             @RequestParam String searchText,
             @RequestParam int page,
@@ -66,7 +74,9 @@ public class DoctorController {
 
     ){
 
-        return "List Doctor";
+        StandardResponse standardResponse = new StandardResponse(200, "Get All Doctors Successfully",doctorService.getAllDoctors(searchText,page,size));
+
+        return new ResponseEntity<>(standardResponse, HttpStatus.OK);
     }
 
 

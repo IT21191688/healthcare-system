@@ -19,4 +19,9 @@ public interface DoctorRepo extends JpaRepository<Doctor,Long> {
 
     Optional<Doctor> findTopByOrderByIdDesc();
 
+
+    @Query(value = "SELECT COUNT(*) FROM doctor WHERE name LIKE ?1 OR address LIKE ?1",nativeQuery = true)
+    public Long countDoctors(String searchText);
+
+
 }

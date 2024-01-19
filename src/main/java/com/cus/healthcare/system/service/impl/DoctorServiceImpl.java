@@ -2,6 +2,7 @@ package com.cus.healthcare.system.service.impl;
 
 import com.cus.healthcare.system.dto.request.RequestDoctorDto;
 import com.cus.healthcare.system.dto.response.ResponseDoctorDto;
+import com.cus.healthcare.system.dto.response.paginated.PaginatedDoctorResponseDto;
 import com.cus.healthcare.system.entity.Doctor;
 import com.cus.healthcare.system.repo.DoctorRepo;
 import com.cus.healthcare.system.service.DoctorService;
@@ -88,23 +89,25 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<ResponseDoctorDto> getAllDoctors(String searchText, int page, int size) {
-        searchText="%"+searchText+"%";
-        List<Doctor> doctors=doctorRepo.searchDoctors(searchText, PageRequest.of(page,size));
+    public PaginatedDoctorResponseDto getAllDoctors(String searchText, int page, int size) {
+        searchText = "%" + searchText + "%";
+        List<Doctor> doctors = doctorRepo.searchDoctors(searchText, PageRequest.of(page, size));
 
-        List<ResponseDoctorDto> dtos=new ArrayList<>();
+        long doctorCount = doctorRepo.countDoctors(searchText);
+
+        List<ResponseDoctorDto> dtos = new ArrayList<>();
 
         doctors.forEach(
-                doc->{
-                   dtos.add(
-                           new ResponseDoctorDto(
-                                   doc.getId(),doc.getName(),doc.getContact(),doc.getAddress(),doc.getSalary()
-                           )
-                   );
+                doc -> {
+                    dtos.add(
+                            new ResponseDoctorDto(
+                                    doc.getId(), doc.getName(), doc.getContact(), doc.getAddress(), doc.getSalary()
+                            )
+                    );
                 }
         );
 
-        return dtos;
+        return new PaginatedDoctorResponseDto(doctorCount, dtos);
     }
 
     @Override
