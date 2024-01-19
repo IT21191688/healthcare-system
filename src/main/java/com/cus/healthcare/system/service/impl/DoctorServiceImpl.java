@@ -4,6 +4,7 @@ import com.cus.healthcare.system.dto.request.RequestDoctorDto;
 import com.cus.healthcare.system.dto.response.ResponseDoctorDto;
 import com.cus.healthcare.system.dto.response.paginated.PaginatedDoctorResponseDto;
 import com.cus.healthcare.system.entity.Doctor;
+import com.cus.healthcare.system.exception.EntryNotFoundException;
 import com.cus.healthcare.system.repo.DoctorRepo;
 import com.cus.healthcare.system.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> selectedDoctor= doctorRepo.findById(id);
 
         if(selectedDoctor.isEmpty()){
-            throw new RuntimeException("Doctor Not found");
+            throw new EntryNotFoundException("Doctor Not found");
         }
 
         doctorRepo.deleteById(selectedDoctor.get().getId());
@@ -56,7 +57,7 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> selectedDoctor= doctorRepo.findById(id);
 
         if(selectedDoctor.isEmpty()){
-            throw new RuntimeException("Doctor Not found");
+            throw new EntryNotFoundException("Doctor Not found");
         }
 
         Doctor doc=selectedDoctor.get();
@@ -78,7 +79,7 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> selectedDoctor= doctorRepo.findById(id);
 
         if(selectedDoctor.isEmpty()){
-            throw new RuntimeException("Doctor Not found");
+            throw new EntryNotFoundException("Doctor Not found");
         }
 
         Doctor doc=selectedDoctor.get();
