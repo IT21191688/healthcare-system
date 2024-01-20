@@ -1,5 +1,9 @@
 package com.cus.healthcare.system.security;
 
+import com.cus.healthcare.system.jwt.JwtConfig;
+import com.cus.healthcare.system.jwt.JwtTokenVerifier;
+import com.cus.healthcare.system.jwt.JwtUsernamePasswordAuthenticationFilter;
+import com.cus.healthcare.system.service.impl.ApplicationUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +25,8 @@ import java.util.List;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final ApplicationUserServiceImpl applicationUserService;
+    private final
+    ApplicationUserServiceImpl applicationUserService;
     //private final UserService;
 
     private final JwtConfig jwtConfig;
