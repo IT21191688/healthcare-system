@@ -1,10 +1,10 @@
 package com.cus.healthcare.system.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable

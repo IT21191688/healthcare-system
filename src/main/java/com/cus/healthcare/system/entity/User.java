@@ -1,14 +1,14 @@
 package com.cus.healthcare.system.entity;
 
-import jakarta.persistence.Id;
-import lombok.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity

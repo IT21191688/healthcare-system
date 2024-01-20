@@ -1,7 +1,8 @@
 package com.cus.healthcare.system.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
