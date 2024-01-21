@@ -1,8 +1,6 @@
 package com.cus.healthcare.system.jwt;
 
-import com.cus.healthcare.system.dto.response.CustomAuthenticationResponse;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
+import com.cus.healthcare.system.dto.response.CustomResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 public class JwtUsernamePasswordAuthenticationFilter
         extends UsernamePasswordAuthenticationFilter {
@@ -80,6 +79,7 @@ public class JwtUsernamePasswordAuthenticationFilter
      */
 
 
+
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
@@ -92,14 +92,20 @@ public class JwtUsernamePasswordAuthenticationFilter
                 .signWith(secretKey)
                 .compact();
 
-        CustomAuthenticationResponse customResponse = new CustomAuthenticationResponse();
-        customResponse.setToken(jwtConfig.getTokenPrefix() + token);
+        // Assuming you have some user data
+        Object userData = Map.of("token", jwtConfig.getTokenPrefix() + token);
+
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setData(userData);
+        customResponse.setSuccessful(true); // Assuming successful authentication
+        customResponse.setStatusCode(HttpServletResponse.SC_OK); // HTTP status code for success
         customResponse.setMessage("Login successful");
-        customResponse.setData("Additional data you want to include");
 
         // Convert custom response to JSON and write to response body
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(new ObjectMapper().writeValueAsString(customResponse));
     }
+
+
 }

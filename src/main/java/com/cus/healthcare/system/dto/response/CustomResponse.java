@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomAuthenticationResponse {
-    private String token;
+public class CustomResponse {
+    private Object data;
+    private boolean isSuccessful;
+    private int statusCode;
     private String message;
-    private Object data; // You can include additional data in the response
+
 
 }
