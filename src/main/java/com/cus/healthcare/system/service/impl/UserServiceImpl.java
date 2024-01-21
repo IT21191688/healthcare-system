@@ -48,7 +48,10 @@ public class UserServiceImpl implements UserService {
     public void signup(RequestUserDto userDto) {
         UserRole userRole;
         if (userDto.getId()==1){
+            //System.out.println("======="+userDto.getId()+"==========");
             userRole = userRoleRepo.findUserRoleByName("ADMIN");
+
+            //System.out.println(userRole);
         }else{
             userRole =  userRoleRepo.findUserRoleByName("DOCTOR");
         }
