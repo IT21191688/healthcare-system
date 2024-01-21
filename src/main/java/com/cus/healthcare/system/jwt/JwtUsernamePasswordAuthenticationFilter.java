@@ -1,5 +1,6 @@
 package com.cus.healthcare.system.jwt;
 
+import com.cus.healthcare.system.dto.response.CustomAuthenticationResponse;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +57,8 @@ public class JwtUsernamePasswordAuthenticationFilter
         }
     }
 
+
+    /*
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response, FilterChain chain,
@@ -71,5 +74,32 @@ public class JwtUsernamePasswordAuthenticationFilter
                 .compact();
         response.addHeader(jwtConfig.getAuthorizationHeader(),
                 jwtConfig.getTokenPrefix()+token);
+    }
+
+
+     */
+
+
+    protected void successfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response, FilterChain chain,
+                                            Authentication authResult) throws IOException, ServletException {
+
+        String token = Jwts.builder()
+                .setSubject(authResult.getName())
+                .claim("authorities", authResult.getAuthorities())
+                .setIssuedAt(new Date())
+                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
+                .signWith(secretKey)
+                .compact();
+
+        CustomAuthenticationResponse customResponse = new CustomAuthenticationResponse();
+        customResponse.setToken(jwtConfig.getTokenPrefix() + token);
+        customResponse.setMessage("Login successful");
+        customResponse.setData("Additional data you want to include");
+
+        // Convert custom response to JSON and write to response body
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new ObjectMapper().writeValueAsString(customResponse));
     }
 }

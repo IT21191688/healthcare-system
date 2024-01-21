@@ -47,6 +47,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signup(RequestUserDto userDto) {
         UserRole userRole;
+
+        System.out.println(userDto);
         if (userDto.getId()==1){
             //System.out.println("======="+userDto.getId()+"==========");
             userRole = userRoleRepo.findUserRoleByName("ADMIN");
