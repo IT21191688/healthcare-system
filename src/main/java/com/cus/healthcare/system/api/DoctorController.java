@@ -3,7 +3,7 @@ package com.cus.healthcare.system.api;
 
 import com.cus.healthcare.system.dto.request.RequestDoctorDto;
 import com.cus.healthcare.system.service.DoctorService;
-import com.cus.healthcare.system.service.utill.StandardResponse;
+import com.cus.healthcare.system.utill.StandardResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

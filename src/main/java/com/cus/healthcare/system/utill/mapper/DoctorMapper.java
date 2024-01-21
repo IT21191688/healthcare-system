@@ -1,4 +1,4 @@
-package com.cus.healthcare.system.service.utill.mapper;
+package com.cus.healthcare.system.utill.mapper;
 
 import com.cus.healthcare.system.dto.request.RequestDoctorDto;
 import com.cus.healthcare.system.dto.response.ResponseDoctorDto;

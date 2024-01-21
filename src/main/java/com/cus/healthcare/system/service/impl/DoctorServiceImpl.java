@@ -7,12 +7,11 @@ import com.cus.healthcare.system.entity.Doctor;
 import com.cus.healthcare.system.exception.EntryNotFoundException;
 import com.cus.healthcare.system.repo.DoctorRepo;
 import com.cus.healthcare.system.service.DoctorService;
-import com.cus.healthcare.system.service.utill.mapper.DoctorMapper;
+import com.cus.healthcare.system.utill.mapper.DoctorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

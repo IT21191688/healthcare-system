@@ -1,4 +1,4 @@
-package com.cus.healthcare.system.service.utill;
+package com.cus.healthcare.system.utill;
 
 
 import lombok.AllArgsConstructor;

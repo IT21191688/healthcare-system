@@ -1,7 +1,7 @@
 package com.cus.healthcare.system.advisers;
 
 import com.cus.healthcare.system.exception.EntryNotFoundException;
-import com.cus.healthcare.system.service.utill.StandardResponse;
+import com.cus.healthcare.system.utill.StandardResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
