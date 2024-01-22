@@ -18,13 +18,10 @@ public class Doctor {
 
     @Id
     private long id;
-
     private String name;
     private String address;
     private String contact;
     private double salary;
-
-
 
 
 }

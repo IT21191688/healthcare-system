@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         if (userDto.getRoleId() == 1) {
             userRole = userRoleRepo.findUserRoleByName("ADMIN");
         } else {
-            userRole = userRoleRepo.findUserRoleByName("DOCTOR");
+            userRole = userRoleRepo.findUserRoleByName("USER");
         }
 
         if (userRole == null) {

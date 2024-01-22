@@ -44,7 +44,7 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
             if (userRole.getUserRole().getRoleName().equals("ADMIN")){
                 grantedAuthorities.addAll(ADMIN.getSimpleGrantedAuthorities());
             }
-            if (userRole.getUserRole().getRoleName().equals("DOCTOR")){
+            if (userRole.getUserRole().getRoleName().equals("USER")){
                 grantedAuthorities.addAll(DOCTOR.getSimpleGrantedAuthorities());
             }
         }
