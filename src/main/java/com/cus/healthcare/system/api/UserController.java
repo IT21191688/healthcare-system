@@ -1,6 +1,7 @@
 package com.cus.healthcare.system.api;
 
 import com.cus.healthcare.system.dto.request.RequestUserDto;
+import com.cus.healthcare.system.dto.response.CustomResponse;
 import com.cus.healthcare.system.service.UserService;
 import com.cus.healthcare.system.utill.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/visitor/signup")
-    public ResponseEntity<StandardResponse> createDoctor(@RequestBody RequestUserDto userDto){
+    public ResponseEntity<CustomResponse> createDoctor(@RequestBody RequestUserDto userDto){
         userService.signup(userDto);
-        return new ResponseEntity<>(
-                new StandardResponse(201,"user was saved!",
-                        userDto.getFullName()),
-                HttpStatus.CREATED
-        );
+        Object responseData = userDto; // Replace this with your actual data
+
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setData(responseData);
+        customResponse.setSuccessful(true); // Set to true if the operation was successful
+        customResponse.setStatusCode(HttpStatus.OK.value()); // Use appropriate HTTP status code
+        customResponse.setMessage("User state!");
+
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }
 
     @GetMapping(value = "/verify", params = {"type"})
