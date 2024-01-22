@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import javax.transaction.Transactional;
+import java.util.Random;
 
 @Service
 @Transactional
@@ -45,28 +46,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void signup(RequestUserDto userDto) {
+    public String signup(RequestUserDto userDto) {
         UserRole userRole;
 
-        System.out.println(userDto);
-        if (userDto.getId()==1){
-            //System.out.println("======="+userDto.getId()+"==========");
+        if (userDto.getRoleId() == 1) {
             userRole = userRoleRepo.findUserRoleByName("ADMIN");
-
-            //System.out.println(userRole);
-        }else{
-            userRole =  userRoleRepo.findUserRoleByName("DOCTOR");
+        } else {
+            userRole = userRoleRepo.findUserRoleByName("DOCTOR");
         }
 
-        if (userRole==null){
+        if (userRole == null) {
             throw new RuntimeException("User role not found");
         }
 
+        // Generate a random 10-digit user ID
+        String userId = generateRandomUserId();
+
         User user = new User(
-                userDto.getId(),
+                userId,
                 userDto.getFullName(),
                 userDto.getEmail(),
                 passwordEncoder.encode(userDto.getPassword()),
+                userDto.getRoleId(),
                 true,
                 true,
                 true,
@@ -74,9 +75,18 @@ public class UserServiceImpl implements UserService {
                 null
         );
 
-        UserRoleHasUser userData = new UserRoleHasUser(user,userRole);
+        UserRoleHasUser userData = new UserRoleHasUser(user, userRole);
         userRepo.save(user);
-        userRoleHasUserRepo.save(userData);
+        //userRoleHasUserRepo.save(userData);
+
+        return userId;
+    }
+
+    private String generateRandomUserId() {
+        Random random = new Random();
+        // Generate a random integer with 10 digits
+        int userId = 100_000_000 + random.nextInt(900_000_000);
+        return String.valueOf(userId);
     }
 
     @Override

@@ -19,14 +19,15 @@ public class UserController {
 
     @PostMapping("/visitor/signup")
     public ResponseEntity<CustomResponse> createDoctor(@RequestBody RequestUserDto userDto){
-        userService.signup(userDto);
-        Object responseData = userDto; // Replace this with your actual data
+        String userId=userService.signup(userDto);
+
+        userDto.setId(userId);
 
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setData(responseData);
+        customResponse.setData(userDto);
         customResponse.setSuccessful(true); // Set to true if the operation was successful
         customResponse.setStatusCode(HttpStatus.OK.value()); // Use appropriate HTTP status code
-        customResponse.setMessage("User state!");
+        customResponse.setMessage("User Save Success!");
 
         return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }

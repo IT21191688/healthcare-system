@@ -36,6 +36,7 @@ public class ApplicationUserServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("username %s not found",username));
         }
 
+        //change
         List<UserRoleHasUser> userRoles = userRoleHasUserRepo.findByUserId(selectedUser.getId());
         Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
 

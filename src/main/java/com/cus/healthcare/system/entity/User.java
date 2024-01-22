@@ -19,10 +19,11 @@ import java.util.Set;
 public class User {
 
     @Id
-    private long id;
+    private String id;
     private String fullName;
     private String username;
     private String password;
+    private long roleId;
     private boolean isAccountNonExpired;
     private boolean isCredentialsNonExpired;
     private boolean isAccountNonLocked;
