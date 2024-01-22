@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
         UserRoleHasUser userData = new UserRoleHasUser(user, userRole);
         userRepo.save(user);
-        //userRoleHasUserRepo.save(userData);
+        userRoleHasUserRepo.save(userData);
 
         return userId;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @EnableJpaRepositories
 @Repository
-public interface UserRoleHasUserRepo extends JpaRepository<UserRoleHasUser,Long> {
-    @Query(value = "SELECT * FROM user_role_has_user WHERE user_id=?1", nativeQuery = true)
+public interface UserRoleHasUserRepo extends JpaRepository<UserRoleHasUser,String> {
+    @Query(value = "SELECT * FROM user_role_has_user WHERE user_id=?", nativeQuery = true)
     List<UserRoleHasUser> findByUserId(String id);
 }
